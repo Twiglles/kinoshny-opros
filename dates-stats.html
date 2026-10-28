@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Twiglles Киношная — статистика дат</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dates.css">
+</head>
+<body class="dates-page">
+  <main class="feed dates-feed">
+    <header class="hero">
+      <div class="brand">Twiglles Киношная</div>
+      <h1>Статистика дат</h1>
+      <div class="stats-head"><span class="live-dot" id="live-dot"></span><span id="conn">Подключаюсь…</span></div>
+      <div id="mode-note" class="mode-note" hidden></div>
+    </header>
+
+    <section class="kpis" id="kpis"></section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>Лучшие даты</h2>
+        <p id="top-note"></p>
+      </div>
+      <div id="top" class="top"></div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>Календарь</h2>
+        <p>Чем краснее день, тем больше людей его отметили. Нажми на день, чтобы увидеть время.</p>
+      </div>
+      <div id="heat" class="months heat"></div>
+    </section>
+
+    <section class="block" id="detail-block" hidden>
+      <div id="detail" class="detail"></div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>Кто ответил</h2>
+        <button type="button" class="tool-btn" id="csv">Скачать CSV</button>
+      </div>
+      <div id="people"></div>
+    </section>
+
+    <footer class="foot"><a href="dates.html">Страница выбора дат</a> · Twiglles Киношная</footer>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="dates-common.js"></script>
+  <script src="dates-stats.js"></script>
+</body>
+</html>

@@ -58,6 +58,27 @@ button, input, textarea { font: inherit; color: inherit; }
   margin: 18px 0 14px;
   letter-spacing: -.01em;
 }
+/* большой переключатель «Что смотрим? / Когда смотрим?» */
+.switch {
+  display: flex; flex-wrap: wrap; gap: 4px clamp(18px, 3vw, 36px);
+  margin: 18px 0 14px;
+  font: 700 clamp(28px, 5vw, 52px)/1.1 Unbounded, sans-serif;
+  letter-spacing: -.01em;
+}
+.switch a {
+  position: relative;
+  color: rgba(255, 255, 255, .26);
+  text-decoration: none;
+  padding-bottom: 8px;
+  transition: color .2s;
+}
+.switch a:hover { color: rgba(255, 255, 255, .6); }
+.switch a[aria-current="page"] { color: var(--white); }
+.switch a[aria-current="page"]::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 4px; border-radius: 2px; background: var(--accent);
+}
+
 .theme { margin: 0 0 14px; font-size: 17px; font-weight: 500; }
 .lead { color: var(--muted); max-width: 60ch; margin: 0; }
 .mode-note {

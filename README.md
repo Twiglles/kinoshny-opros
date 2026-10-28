@@ -77,6 +77,74 @@ GitHub Pages умеет только показывать страницы, а �
 В `config.js` поменяй `pollId` (например на `"2026-11-01"`) — начнётся чистое голосование, старое останется в базе.
 Ограничить количество голосов на человека: `maxVotesPerPerson: 1` (или 2, 3…).
 
+## Выбор дат: «Когда смотрим?»
+
+Вверху обеих страниц есть переключатель **Что смотрим? / Когда смотрим?**
+
+- `dates.html` — страница для всех: календарь на ноябрь 2026 почти на весь экран. Человек нажимает на день и в выпадающем списке прямо в клетке выбирает, во сколько ему удобно («Весь день», «Днём», «С 19:00»…). На компьютере открывается свой список в стиле страницы, на телефоне — системный. Имя можно вписать, можно не вписывать. Всё сохраняется само.
+- `dates-stats.html` — **статистика для организаторов**. На главной странице на неё ссылок нет, адрес знаете только вы: `https://<твой-логин>.github.io/kinovote/dates-stats.html`. Там видно, сколько человек ответили, рейтинг дат, тепловой календарь, кто когда свободен в выбранный день, лучшее время начала и выгрузка в CSV (открывается в Excel).
+
+«Лучшее время начала» — это время, с которого больше всего людей смогут досмотреть фильм целиком. Длина фильма задаётся в `config.js` → `dates.movieMinutes`.
+
+Настройки — в `config.js`, блок `dates`: месяц, варианты времени в списке (`slots`), длина фильма. Новый сбор дат с нуля — поменяй `dates.pollId`.
+
+### Правила Firebase для дат
+
+Даты хранятся в той же базе, в ветке `dates`. Без новых правил база не пустит туда запись, и на странице появится «Нет доступа к базе дат». В Firebase → **Realtime Database → Rules** замени всё на это и нажми **Publish** (блок `polls` тот же, что выше, добавился `dates`):
+
+```json
+{
+  "rules": {
+    "polls": {
+      "$poll": {
+        ".read": true,
+        "votes": {
+          "$film": {
+            "$voter": {
+              ".write": true,
+              ".validate": "$voter.length <= 40 && (newData.val() === true || !newData.exists())"
+            }
+          }
+        },
+        "films": {
+          "$film": {
+            ".write": "!data.exists() || !newData.exists()",
+            ".validate": "newData.child('title').isString() && newData.child('title').val().length > 0 && newData.child('title').val().length <= 120 && (!newData.child('poster').exists() || newData.child('poster').val().length < 400000)"
+          }
+        }
+      }
+    },
+    "dates": {
+      "$poll": {
+        ".read": true,
+        "answers": {
+          "$voter": {
+            ".write": "$voter.length <= 40",
+            ".validate": "newData.hasChildren(['updatedAt', 'days']) && newData.child('updatedAt').isNumber()",
+            "name": { ".validate": "newData.isString() && newData.val().length <= 60" },
+            "same": { ".validate": "newData.isBoolean()" },
+            "updatedAt": { ".validate": true },
+            "days": {
+              "$day": {
+                ".validate": "$day.matches(/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/) && newData.child('from').isNumber() && newData.child('to').isNumber() && newData.child('from').val() >= 0 && newData.child('to').val() <= 1440 && newData.child('from').val() < newData.child('to').val()",
+                "from": { ".validate": true },
+                "to": { ".validate": true },
+                "$other": { ".validate": false }
+              }
+            },
+            "$other": { ".validate": false }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Проверить страницы без базы можно, дописав к адресу `?demo`: тогда ответы хранятся только в браузере (`dates.html?demo` и `dates-stats.html?demo`).
+
+Ограничение то же, что у голосования: человек опознаётся по браузеру, и ответы с именами может прочитать любой, кто знает адрес базы. Для компании друзей этого хватает.
+
 ## Посмотреть локально
 
 Открой папку в терминале и запусти:

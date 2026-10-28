@@ -74,6 +74,13 @@ button, input, textarea { font: inherit; color: inherit; }
 }
 .switch a:hover { color: rgba(255, 255, 255, .6); }
 .switch a[aria-current="page"] { color: var(--white); }
+/* Вкладки на одной странице: показываем только содержимое открытой. */
+html:not(.tab-when) [data-pane="when"],
+html.tab-when [data-pane="what"] { display: none; }
+html.tab-when .layout { grid-template-columns: minmax(0, 1fr) 0; }
+html.tab-when .panel { display: none; }
+html.tab-when .feed { max-width: 1240px; }
+
 /* Плавный переход между «Что смотрим?» и «Когда смотрим?»: браузер не моргает,
    а растворяет одну страницу в другую, заголовки и плашка переезжают на место. */
 @view-transition { navigation: auto; }

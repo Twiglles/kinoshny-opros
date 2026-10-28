@@ -125,9 +125,10 @@ window.KinoDates = (function () {
 
   async function firebaseBackend(fbConfig) {
     const V = "10.12.2";
-    const { initializeApp } = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-app.js`);
+    const { initializeApp, getApps } = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-app.js`);
     const { getDatabase, ref, onValue, set } = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-database.js`);
-    const db = getDatabase(initializeApp(fbConfig));
+    // На главной странице Firebase уже может быть запущен голосованием за фильм — берём его.
+    const db = getDatabase(getApps()[0] || initializeApp(fbConfig));
     const root = `dates/${settings.pollId}/answers`;
     return {
       mode: "live",

@@ -11,6 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dates.css">
+  <!-- Если пришли по ссылке на «Когда смотрим?», сразу открываем эту вкладку, без мигания. -->
+  <script>if (location.hash === "#when") document.documentElement.classList.add("tab-when");</script>
 </head>
 <body>
   <div class="layout" id="layout">
@@ -18,14 +21,39 @@
       <header class="hero">
         <div class="brand">Twiglles Киношная</div>
         <nav class="switch" aria-label="Разделы">
-          <a href="./" aria-current="page">Что смотрим?</a>
-          <a href="dates.html">Когда смотрим?</a>
+          <a href="./" data-tab="what" aria-current="page">Что смотрим?</a>
+          <a href="./#when" data-tab="when">Когда смотрим?</a>
         </nav>
-        <p class="theme">Тема ноября — фильмы, основанные на реальных событиях</p>
-        <p class="lead">Листай, изучай и отмечай фильмы, которые хочешь посмотреть. Можно выбрать несколько — повторное нажатие снимает голос. Таблица результатов обновляется в реальном времени. Своего фильма нет — добавь его в конце списка.</p>
-        <div id="mode-note" class="mode-note" hidden></div>
+        <div class="pane" data-pane="what">
+          <p class="theme">Тема ноября — фильмы, основанные на реальных событиях</p>
+          <p class="lead">Листай, изучай и отмечай фильмы, которые хочешь посмотреть. Можно выбрать несколько — повторное нажатие снимает голос. Таблица результатов обновляется в реальном времени. Своего фильма нет — добавь его в конце списка.</p>
+          <div id="mode-note" class="mode-note" hidden></div>
+        </div>
+        <div class="pane" data-pane="when">
+          <p class="lead">Нажми на день и выбери в списке, во сколько тебе удобно. Отметь все дни, которые подходят: выберем тот, что удобен большинству.</p>
+          <div id="d-note" class="mode-note" hidden></div>
+        </div>
       </header>
 
+      <!-- «Когда смотрим?»: календарь -->
+      <div class="pane when-pane" data-pane="when">
+        <div class="wall-bar">
+          <h2 class="month-title" id="d-month"></h2>
+          <label class="who">
+            <span class="who-label">Как тебя зовут?</span>
+            <input id="d-name" maxlength="60" placeholder="можно не писать" autocomplete="nickname">
+          </label>
+          <div class="save" role="status" aria-live="polite">
+            <span class="live-dot" id="d-live-dot"></span>
+            <span id="d-save-text">Отметь хотя бы один день</span>
+            <button type="button" class="link-btn" id="d-clear" hidden>Сбросить</button>
+          </div>
+        </div>
+        <section id="d-board" class="board-cal" aria-label="Календарь"></section>
+      </div>
+
+      <!-- «Что смотрим?»: фильмы -->
+      <div class="pane" data-pane="what">
       <section id="films" class="films" aria-label="Фильмы"></section>
 
       <section class="add" aria-label="Добавить фильм">
@@ -72,6 +100,7 @@
       </section>
 
       <footer class="foot">Twiglles Киношная · голосование</footer>
+      </div>
     </main>
 
     <aside id="panel" class="panel" aria-label="Результаты голосования">
@@ -93,5 +122,8 @@
   <script src="config.js"></script>
   <script src="films.js"></script>
   <script src="app.js"></script>
+  <script src="dates-common.js"></script>
+  <script src="dates.js"></script>
+  <script src="tabs.js"></script>
 </body>
 </html>

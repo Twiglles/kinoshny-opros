@@ -31,7 +31,7 @@
     const total = new Date(y, m, 0).getDate();
     const lead = (first.getDay() + 6) % 7;
     const rows = Math.ceil((lead + total) / 7);
-    $("#month-title").innerHTML = `${K.MONTHS[m - 1]} <span>${y}</span>`;
+    $("#d-month").innerHTML = `${K.MONTHS[m - 1]} <span>${y}</span>`;
 
     const options = `<option value="">Не могу</option>` + S.slots.map((s, i) => `<option value="${i}">${esc(s.label)}</option>`).join("");
     let html = K.WD.map((w, i) => `<div class="wd${i > 4 ? " we" : ""}">${w}</div>`).join("");
@@ -47,7 +47,7 @@
         ${fine ? "" : `<select aria-label="${esc(K.fmtDayLong(k))}: во сколько удобно">${options}</select>`}
       </div>`;
     }
-    const board = $("#board");
+    const board = $("#d-board");
     board.style.setProperty("--rows", rows);
     board.innerHTML = html;
     updateBoard();
@@ -60,7 +60,7 @@
   }
 
   function updateBoard() {
-    document.querySelectorAll("#board .cell[data-k]").forEach((el) => {
+    document.querySelectorAll("#d-board .cell[data-k]").forEach((el) => {
       const k = el.dataset.k;
       const r = state.days[k];
       const sel = el.querySelector("select");
@@ -87,7 +87,7 @@
   }
 
   // Телефон: системный список, он удобнее пальцем.
-  $("#board").addEventListener("change", (e) => {
+  $("#d-board").addEventListener("change", (e) => {
     const sel = e.target.closest("select");
     if (sel) choose(sel.closest(".cell").dataset.k, sel.value);
   });
@@ -126,7 +126,7 @@
     (menu.querySelector('[aria-selected="true"]') || menu.querySelector(".menu-item")).focus({ preventScroll: true });
   }
   if (fine) {
-    $("#board").addEventListener("click", (e) => {
+    $("#d-board").addEventListener("click", (e) => {
       const item = e.target.closest(".menu-item");
       if (item) { const cell = item.closest(".cell"); choose(cell.dataset.k, item.dataset.v); closeMenu(true); return; }
       if (e.target.closest(".menu")) return;
@@ -134,7 +134,7 @@
       if (!cell) return;
       if (cell === openCell) closeMenu(); else openMenu(cell);
     });
-    $("#board").addEventListener("keydown", (e) => {
+    $("#d-board").addEventListener("keydown", (e) => {
       const cell = e.target.closest(".cell[data-k]");
       if (!cell) return;
       if (e.key === "Escape") { closeMenu(true); return; }
@@ -147,16 +147,16 @@
       }
     });
     document.addEventListener("pointerdown", (e) => { if (openCell && !openCell.contains(e.target)) closeMenu(); });
-    $("#board").addEventListener("focusout", (e) => { if (openCell && !openCell.contains(e.relatedTarget) && e.relatedTarget) closeMenu(); });
+    $("#d-board").addEventListener("focusout", (e) => { if (openCell && !openCell.contains(e.relatedTarget) && e.relatedTarget) closeMenu(); });
   }
 
   // ---------- имя ----------
-  const nameInput = $("#name");
+  const nameInput = $("#d-name");
   nameInput.value = state.name;
   nameInput.addEventListener("input", () => { state.name = nameInput.value.trim().slice(0, 60); changed(true); });
 
   // ---------- сохранение ----------
-  const saveText = (t) => ($("#save-text").textContent = t);
+  const saveText = (t) => ($("#d-save-text").textContent = t);
   const savedText = (n) => (n ? `Сохранено · ${K.daysWord(n)}${backend && backend.mode === "demo" ? " (только в этом браузере)" : ""}` : "Отметь хотя бы один день");
   let timer = null;
   let saving = Promise.resolve();
@@ -169,7 +169,7 @@
     state.updatedAt = Date.now();
     persistLocal();
     updateBoard();
-    $("#clear").hidden = !selected().length;
+    $("#d-clear").hidden = !selected().length;
     clearTimeout(timer);
     if (!quiet) saveText("Сохраняю…");
     timer = setTimeout(push, quiet ? 900 : 300);
@@ -188,25 +188,25 @@
     );
   }
 
-  $("#clear").addEventListener("click", () => {
+  $("#d-clear").addEventListener("click", () => {
     if (!confirm("Снять все отмеченные дни?")) return;
     state.days = {};
     changed();
   });
 
   function note(html) {
-    const el = $("#mode-note");
+    const el = $("#d-note");
     el.innerHTML = html;
     el.hidden = !html;
   }
 
   // ---------- старт ----------
   renderBoard();
-  $("#clear").hidden = !selected().length;
+  $("#d-clear").hidden = !selected().length;
   if (selected().length) saveText(`Выбрано: ${K.daysWord(selected().length)}`);
 
   backend = await K.connect(note);
-  const dot = $("#live-dot");
+  const dot = $("#d-live-dot");
   if (backend.mode === "demo") { dot.classList.add("demo"); dot.title = "Демо-режим"; }
 
   let first = true;
@@ -225,7 +225,7 @@
           Object.assign(state, mine, { same: false });
           nameInput.value = state.name;
           persistLocal();
-          $("#clear").hidden = !selected().length;
+          $("#d-clear").hidden = !selected().length;
           saveText(savedText(selected().length));
         } else if (selected().length && (!mine || mine.updatedAt < state.updatedAt)) {
           push(); // в базе нет последней версии — досылаем

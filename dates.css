@@ -13,13 +13,14 @@
 }
 .wall-head .switch { margin-bottom: 10px; }
 .wall-head .lead { max-width: 70ch; }
+.when-pane .wall-bar { margin-top: 30px; }
 
 .wall-bar {
   display: flex; align-items: center; flex-wrap: wrap;
   gap: 12px 28px;
   margin: 26px 0 14px;
 }
-.wall .month-title { font: 700 clamp(24px, 3vw, 34px)/1.1 Unbounded, sans-serif; margin: 0; }
+.wall .month-title, .when-pane .month-title { font: 700 clamp(24px, 3vw, 34px)/1.1 Unbounded, sans-serif; margin: 0; }
 .month-title span { color: var(--muted); font-weight: 500; }
 
 .who { display: flex; align-items: baseline; gap: 12px; flex: 0 1 380px; min-width: 0; }
@@ -43,7 +44,8 @@
   grid-template-columns: repeat(7, minmax(0, 1fr));
   grid-template-rows: auto repeat(var(--rows, 5), minmax(78px, 1fr));
   gap: 8px;
-  min-height: 460px;
+  min-height: max(460px, calc(100vh - 340px));
+  margin-bottom: 48px;
 }
 .board-cal .wd { text-align: left; padding: 0 4px 2px; color: var(--muted); font-size: 13px; font-weight: 500; }
 .board-cal .wd.we { color: rgba(255, 255, 255, .85); }

@@ -10,7 +10,9 @@
 
   function apply(tab) {
     want = tab;
+    root.classList.add("tab-switching");
     root.classList.toggle("tab-when", tab === "when");
+    requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove("tab-switching")));
     links.forEach((a) => {
       if (a.dataset.tab === tab) a.setAttribute("aria-current", "page");
       else a.removeAttribute("aria-current");

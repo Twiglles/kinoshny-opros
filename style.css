@@ -58,9 +58,9 @@ button, input, textarea { font: inherit; color: inherit; }
   margin: 18px 0 14px;
   letter-spacing: -.01em;
 }
-/* большой переключатель «Что смотрим? / Когда смотрим?» */
+/* большой переключатель: «Что смотрим?» и под ним «Когда смотрим?» */
 .switch {
-  display: flex; flex-wrap: wrap; gap: 4px clamp(18px, 3vw, 36px);
+  display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
   margin: 18px 0 14px;
   font: 700 clamp(28px, 5vw, 52px)/1.1 Unbounded, sans-serif;
   letter-spacing: -.01em;

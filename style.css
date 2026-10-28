@@ -74,6 +74,20 @@ button, input, textarea { font: inherit; color: inherit; }
 }
 .switch a:hover { color: rgba(255, 255, 255, .6); }
 .switch a[aria-current="page"] { color: var(--white); }
+/* Плавный переход между «Что смотрим?» и «Когда смотрим?»: браузер не моргает,
+   а растворяет одну страницу в другую, заголовки и плашка переезжают на место. */
+@view-transition { navigation: auto; }
+.brand { view-transition-name: brand; }
+.switch a:nth-child(1) { view-transition-name: tab-what; }
+.switch a:nth-child(2) { view-transition-name: tab-when; }
+::view-transition-group(*) { animation-duration: .4s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
+::view-transition-old(root) { animation: vt-out .25s ease both; }
+::view-transition-new(root) { animation: vt-in .4s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(12px); } }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
 .switch a[aria-current="page"]::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0;
   height: 4px; border-radius: 2px; background: var(--accent);

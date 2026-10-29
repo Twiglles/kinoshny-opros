@@ -26,8 +26,11 @@
     want = tab;
     if (push) history.pushState(null, "", tab === "when" ? "#when" : location.pathname + location.search);
     // Плавная смена: заголовки остаются на месте, содержимое растворяется в новое.
-    if (document.startViewTransition && !reduced) document.startViewTransition(() => apply(tab));
-    else apply(tab);
+    if (document.startViewTransition && !reduced) {
+      // Если анимацию прервали (быстрый повторный клик, уход со страницы) — это не ошибка.
+      const vt = document.startViewTransition(() => apply(tab));
+      vt.ready.catch(() => {}); vt.finished.catch(() => {});
+    } else apply(tab);
   }
 
   links.forEach((a) => a.addEventListener("click", (e) => {

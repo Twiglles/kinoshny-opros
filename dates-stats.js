@@ -42,7 +42,7 @@
   function renderTop(ranked) {
     const n = answers.length;
     $("#top-note").textContent = `Сортировка: сколько человек смогут посмотреть весь фильм (${K.fmtDur(movie)}) целиком, потом — сколько отметили день`;
-    if (!ranked.length) { $("#top").innerHTML = `<div class="empty">Пока никто не отметил ни одного дня. Отправь людям ссылку на <a href="dates.html">страницу выбора дат</a>.</div>`; return; }
+    if (!ranked.length) { $("#top").innerHTML = `<div class="empty">Пока никто не отметил ни одного дня. Отправьте людям ссылку на <a href="dates.html">страницу выбора дат</a>.</div>`; return; }
     const lead = ranked[0].best.n;
     $("#top").innerHTML = ranked.slice(0, 10).map((d, i) => `
       <button type="button" class="top-row${d.best.n === lead && lead > 0 ? " first" : ""}${d.k === selectedDay ? " sel" : ""}" data-k="${d.k}">

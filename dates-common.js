@@ -151,13 +151,13 @@ window.KinoDates = (function () {
         return await firebaseBackend(fb);
       } catch (e) {
         console.error(e);
-        note("<b>Не удалось подключиться к Firebase</b> — работаем в демо-режиме. Проверь настройки в config.js.");
+        note("<b>Не удалось подключиться к Firebase</b> — работаем в демо-режиме. Проверьте настройки в config.js.");
         return demoBackend();
       }
     }
     note(forceDemo
       ? "<b>Демо-режим</b> (в адресе есть ?demo). Ответы сохраняются только в этом браузере."
-      : "<b>Демо-режим.</b> Ответы сохраняются только в этом браузере. Чтобы собирать даты со всех — подключи Firebase (см. README.md).");
+      : "<b>Демо-режим.</b> Ответы сохраняются только в этом браузере. Чтобы собирать даты со всех — подключите Firebase (см. README.md).");
     return demoBackend();
   }
 

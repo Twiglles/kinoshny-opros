@@ -157,7 +157,7 @@
 
   // ---------- сохранение ----------
   const saveText = (t) => ($("#d-save-text").textContent = t);
-  const savedText = (n) => (n ? `Сохранено · ${K.daysWord(n)}${backend && backend.mode === "demo" ? " (только в этом браузере)" : ""}` : "Отметь хотя бы один день");
+  const savedText = (n) => (n ? `Сохранено · ${K.daysWord(n)}${backend && backend.mode === "demo" ? " (только в этом браузере)" : ""}` : "Отметьте хотя бы один день");
   let timer = null;
   let saving = Promise.resolve();
 
@@ -182,8 +182,8 @@
       () => saveText(savedText(n)),
       (err) => {
         console.error(err);
-        saveText("Не сохранилось — попробуй ещё раз");
-        note("<b>Нет доступа к базе.</b> Проверь правила (Rules) в Firebase — см. README.md, раздел «Выбор дат».");
+        saveText("Не сохранилось — попробуйте ещё раз");
+        note("<b>Нет доступа к базе.</b> Проверьте правила (Rules) в Firebase — см. README.md, раздел «Выбор дат».");
       }
     );
   }
@@ -235,7 +235,7 @@
       }
       updateBoard();
     },
-    (err) => { console.error(err); note("<b>Нет доступа к базе дат.</b> Проверь правила (Rules) в Firebase — см. README.md, раздел «Выбор дат»."); },
+    (err) => { console.error(err); note("<b>Нет доступа к базе дат.</b> Проверьте правила (Rules) в Firebase — см. README.md, раздел «Выбор дат»."); },
     (connected) => {
       if (backend.mode === "demo") return;
       dot.classList.toggle("on", connected);

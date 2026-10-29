@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="benzin-semibold.woff" as="font" type="font/woff" crossorigin>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="dates.css">
   <!-- Если пришли по ссылке на «Когда смотрим?», сразу открываем эту вкладку, без мигания. -->
@@ -26,11 +27,11 @@
         </nav>
         <div class="pane" data-pane="what">
           <p class="theme">Тема ноября — фильмы, основанные на реальных событиях</p>
-          <p class="lead">Листай, изучай и отмечай фильмы, которые хочешь посмотреть. Можно выбрать несколько — повторное нажатие снимает голос. Таблица результатов обновляется в реальном времени. Своего фильма нет — добавь его в конце списка.</p>
+          <p class="lead">Листайте, изучайте и отмечайте фильмы, которые хотите посмотреть. Можно выбрать несколько — повторное нажатие снимает голос. Таблица результатов обновляется в реальном времени. Нужного фильма нет — добавьте его в конце списка.</p>
           <div id="mode-note" class="mode-note" hidden></div>
         </div>
         <div class="pane" data-pane="when">
-          <p class="lead">Нажми на день и выбери в списке, во сколько тебе удобно. Отметь все дни, которые подходят: выберем тот, что удобен большинству.</p>
+          <p class="lead">Нажмите на день и выберите в списке, во сколько вам удобно. Отметьте все дни, которые подходят: выберем тот, что удобен большинству.</p>
           <div id="d-note" class="mode-note" hidden></div>
         </div>
       </header>
@@ -40,12 +41,12 @@
         <div class="wall-bar">
           <h2 class="month-title" id="d-month"></h2>
           <label class="who">
-            <span class="who-label">Как тебя зовут?</span>
+            <span class="who-label">Как вас зовут?</span>
             <input id="d-name" maxlength="60" placeholder="можно не писать" autocomplete="nickname">
           </label>
           <div class="save" role="status" aria-live="polite">
             <span class="live-dot" id="d-live-dot"></span>
-            <span id="d-save-text">Отметь хотя бы один день</span>
+            <span id="d-save-text">Отметьте хотя бы один день</span>
             <button type="button" class="link-btn" id="d-clear" hidden>Сбросить</button>
           </div>
         </div>
@@ -61,7 +62,7 @@
           <span class="poster add-poster"><span class="plus" aria-hidden="true">+</span></span>
           <span class="info">
             <span class="add-title">Добавить фильм</span>
-            <span class="sub">Нет нужного фильма? Добавь его сам: название, год, режиссёр, актёры, рейтинги и постер.</span>
+            <span class="sub">Нет нужного фильма? Добавьте его сами: название, год, режиссёр, актёры, рейтинги и постер.</span>
           </span>
         </button>
 
@@ -69,7 +70,7 @@
           <label class="poster drop" id="drop" title="Загрузить постер">
             <input type="file" accept="image/*" id="f-file" hidden>
             <img id="f-preview" alt="" hidden>
-            <span class="drop-hint"><span class="plus" aria-hidden="true">+</span>Постер<small>нажми, перетащи<br>или вставь картинку</small></span>
+            <span class="drop-hint"><span class="plus" aria-hidden="true">+</span>Постер<small>нажмите, перетащите<br>или вставьте картинку</small></span>
           </label>
           <div class="info">
             <input class="f-title" name="title" placeholder="Название фильма" maxlength="120" required>
@@ -125,5 +126,6 @@
   <script src="dates-common.js"></script>
   <script src="dates.js"></script>
   <script src="tabs.js"></script>
+  <script src="typo.js"></script>
 </body>
 </html>

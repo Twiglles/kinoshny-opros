@@ -17,6 +17,14 @@
   --radius: 14px;
 }
 
+/* Фирменный шрифт плашки «Twiglles Киношная» */
+@font-face {
+  font-family: "Benzin";
+  src: url("benzin-semibold.woff") format("woff");
+  font-weight: 600;
+  font-display: swap;
+}
+
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
@@ -49,8 +57,8 @@ button, input, textarea { font: inherit; color: inherit; }
   border-radius: 6px;
   background: var(--accent);
   color: var(--white);
-  font: 500 12px/1 Unbounded, sans-serif;
-  letter-spacing: .18em;
+  font: 600 12px/1 Benzin, Unbounded, sans-serif;
+  letter-spacing: .08em;
   text-transform: uppercase;
 }
 .hero h1 {

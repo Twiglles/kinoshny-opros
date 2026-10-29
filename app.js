@@ -283,10 +283,10 @@
       backend = await firebaseBackend(fb);
     } catch (e) {
       console.error(e);
-      note("<b>Не удалось подключиться к Firebase</b> — работаем в демо-режиме. Проверь настройки в config.js.");
+      note("<b>Не удалось подключиться к Firebase</b> — работаем в демо-режиме. Проверьте настройки в config.js.");
     }
   } else {
-    note("<b>Демо-режим.</b> Голоса и добавленные фильмы сохраняются только в этом браузере. Чтобы голосовать вместе — подключи Firebase (см. README.md).");
+    note("<b>Демо-режим.</b> Голоса и добавленные фильмы сохраняются только в этом браузере. Чтобы голосовать вместе — подключите Firebase (см. README.md).");
   }
   backend = backend || demoBackend();
 
@@ -308,7 +308,7 @@
   backend.subscribe(
     onVotes,
     onFilms,
-    (err) => { console.error(err); note("<b>Нет доступа к базе голосов.</b> Проверь правила (Rules) в Firebase — см. README.md."); },
+    (err) => { console.error(err); note("<b>Нет доступа к базе голосов.</b> Проверьте правила (Rules) в Firebase — см. README.md."); },
     (connected) => { dot.classList.toggle("on", connected); dot.title = connected ? "Онлайн — результаты обновляются вживую" : "Нет соединения"; }
   );
 
@@ -335,7 +335,7 @@
     } catch (err) {
       console.error(err);
       onVotes(prev);
-      alert("Не получилось сохранить голос. Попробуй ещё раз.");
+      alert("Не получилось сохранить голос. Попробуйте ещё раз.");
     }
   });
 
@@ -419,7 +419,7 @@
       return Number.isFinite(v) && v >= 0 && v <= max ? v : null;
     };
     const title = g("title");
-    if (!title) { msg("Напиши хотя бы название"); form.elements.title.focus(); return; }
+    if (!title) { msg("Напишите хотя бы название"); form.elements.title.focus(); return; }
 
     const ratings = {};
     const imdb = num("imdb", 10), kp = num("kp", 10), rt = num("rt", 100);
@@ -455,7 +455,7 @@
       setTimeout(() => jumpTo(id), 50);
     } catch (err) {
       console.error(err);
-      msg("Не получилось сохранить. Попробуй картинку поменьше или ещё раз.");
+      msg("Не получилось сохранить. Попробуйте картинку поменьше или ещё раз.");
     } finally {
       submit.disabled = false;
     }
